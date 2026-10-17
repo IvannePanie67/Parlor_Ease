@@ -1,0 +1,61 @@
+
+name: Deploy ParlorEase
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create Supabase configuration
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          node -e '
+          const fs = require("fs");
+          const config = {
+            url: process.env.SUPABASE_URL,
+            publishableKey: process.env.SUPABASE_PUBLISHABLE_KEY
+          };
+          if (!config.url || !config.publishableKey) {
+            throw new Error("Missing Supabase configuration secrets");
+          }
+          fs.writeFileSync(
+            "supabase-config.js",
+            "window.SUPABASE_CONFIG = " +
+              JSON.stringify(config) + ";\n"
+          );
+          '
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy website
+        id: deployment
+        uses: actions/deploy-pages@v4
