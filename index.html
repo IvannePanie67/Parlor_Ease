@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ParlorEase — Your Salon, Your Moment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<section id="landingPage" class="landing-page">
+  <header class="landing-nav">
+    <a class="landing-brand" href="#" onclick="return showLanding()"><span class="logo">PE</span><span><b>ParlorEase</b><small>Salon & self-care</small></span></a>
+    <nav class="landing-links" aria-label="Main navigation">
+      <a href="#homeServices">Services</a><a href="#whyParlorEase">The experience</a>
+      <button class="btn btn-outline" onclick="openAuth('customer')">Sign in</button>
+      <button class="btn" onclick="openAuth('customer',true)">Book a visit</button>
+    </nav>
+  </header>
+  <section class="hero" id="home">
+    <div class="hero-copy">
+      <p class="eyebrow">A LITTLE SPACE FOR YOU</p>
+      <h1>Feel good.<br><em>Look like you.</em></h1>
+      <p class="hero-description">Your moment to unwind, refresh, and leave feeling a little more like yourself. Thoughtful salon care, made easy.</p>
+      <div class="hero-actions"><button class="btn btn-large" onclick="openAuth('customer',true)">Book your appointment <span>↗</span></button><a class="text-link" href="#homeServices">Explore services <span>↓</span></a></div>
+      <div class="hero-trust"><span class="trust-icon">✦</span><span><b>Your self-care, made simple</b><small>Browse services and book at your pace.</small></span></div>
+    </div>
+    <div class="hero-visual">
+      <img class="hero-image" src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=85" alt="Calm, modern salon interior" onerror="this.style.display='none'">
+      <div class="hero-image-note"><span class="note-flower">✿</span><span><b>Your time to bloom</b><small>Care that feels like you.</small></span></div>
+      <div class="hero-orbit"></div>
+    </div>
+  </section>
+  <section class="home-services" id="homeServices">
+    <div class="home-section-heading"><div><p class="eyebrow">FIND YOUR FEEL-GOOD</p><h2>A little care goes a long way.</h2></div><p>From a fresh cut to a quiet reset, find the service that fits your day.</p></div>
+    <div class="landing-service-grid">
+      <article class="landing-service"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=750&q=80" alt="Hair styling service" loading="lazy"><div class="landing-service-body"><span>01 · HAIR</span><h3>Hair, refreshed</h3><p>Fresh cuts, styling, and color to make your look feel new.</p><button onclick="openAuth('customer',true)">Explore hair services <span>↗</span></button></div></article>
+      <article class="landing-service"><img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?auto=format&fit=crop&w=750&q=80" alt="Manicure and nail care" loading="lazy"><div class="landing-service-body"><span>02 · NAILS</span><h3>Little nail moment</h3><p>Neat, polished nails and a little detail that lifts your mood.</p><button onclick="openAuth('customer',true)">Explore nail services <span>↗</span></button></div></article>
+      <article class="landing-service"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=750&q=80" alt="Relaxing facial skincare treatment" loading="lazy"><div class="landing-service-body"><span>03 · SKIN</span><h3>Skin, softly cared for</h3><p>Take a breath and give your skin a gentle refresh.</p><button onclick="openAuth('customer',true)">Explore skin services <span>↗</span></button></div></article>
+    </div>
+  </section>
+  <section class="experience-strip" id="whyParlorEase"><div class="experience-photo"><img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?auto=format&fit=crop&w=1000&q=80" alt="Peaceful salon treatment room" loading="lazy"></div><div class="experience-copy"><p class="eyebrow">YOUR VISIT, YOUR WAY</p><h2>Make room for a little you-time.</h2><p>See the services, choose a time, and keep your appointments together in one easy place.</p><ul><li><span>✓</span> Browse salon services and prices</li><li><span>✓</span> Request an appointment online</li><li><span>✓</span> Keep track of upcoming visits</li></ul><button class="btn" onclick="openAuth('customer',true)">Plan your next visit <span>↗</span></button></div></section>
+  <footer class="landing-footer"><a class="landing-brand" href="#home"><span class="logo">PE</span><span><b>ParlorEase</b><small>Make time for yourself.</small></span></a><span>Take a breath. Take your time. ✿</span><button class="text-link" onclick="openAuth('admin')">Staff & admin sign in</button></footer>
+</section>
+
+<section id="authScreen" class="auth-screen hidden">
+  <button type="button" class="auth-home-button" onclick="showLanding()" aria-label="Back to homepage">← <span>Back to homepage</span></button>
+  <div class="auth-brand"><div class="logo">PE</div><div><b>ParlorEase</b><span>Your salon, beautifully managed.</span></div></div>
+  <div class="auth-card">
+    <div class="auth-tabs"><button id="adminTab" class="auth-tab active" onclick="showAuth('admin')">Admin</button><button id="staffTab" class="auth-tab" onclick="showAuth('staff')">Staff</button><button id="customerTab" class="auth-tab" onclick="showAuth('customer')">Customer</button></div>
+    <div id="loginPanel">
+      <p class="eyebrow">WELCOME BACK</p><h1 id="authTitle">Admin Login</h1><p class="muted">Sign in to continue to ParlorEase.</p>
+      <form id="loginForm" class="auth-form">
+        <label>Email or username<input id="loginEmail" autocomplete="username" required placeholder="Enter your email"></label>
+        <label>Password<span class="password-wrap"><input id="loginPassword" type="password" autocomplete="current-password" required placeholder="Enter your password"><button type="button" class="show-password" onclick="togglePassword('loginPassword',this)">Show</button></span></label>
+        <p id="authError" class="auth-error" role="alert"></p>
+        <button class="btn auth-submit" type="submit">Log in</button>
+      </form>
+      <div id="registerPrompt" class="auth-foot">New to ParlorEase? <button class="text-button" onclick="showRegister()">Create a customer account</button></div>
+    </div>
+    <div id="registerPanel" class="hidden">
+      <p class="eyebrow">JOIN PARLOREASE</p><h1>Create account</h1><p class="muted">Book services and manage your appointments.</p>
+      <form id="registerForm" class="auth-form">
+        <label>Full name<input id="registerName" required minlength="2" autocomplete="name" placeholder="Your full name"></label>
+        <label>Email address<input id="registerEmail" type="email" required autocomplete="email" placeholder="you@example.com"></label>
+        <label>Phone number<input id="registerPhone" required autocomplete="tel" placeholder="Your phone number"></label>
+        <label>Password<input id="registerPassword" type="password" required minlength="6" autocomplete="new-password" placeholder="At least 6 characters"></label>
+        <p id="registerError" class="auth-error" role="alert"></p>
+        <button class="btn auth-submit" type="submit">Create customer account</button>
+      </form>
+      <div class="auth-foot">Already registered? <button class="text-button" onclick="showAuth('customer')">Log in</button></div>
+    </div>
+    <div class="demo-note"><b>Classroom demo accounts</b><span>Admin: admin@parlorease.com</span><span>Password: Admin123!</span><small>Customer demo: customer@parlorease.com / Customer123!</small><small>Staff demo: staff@parlorease.com / Staff123!</small></div>
+  </div>
+  <p class="auth-caption">A simpler, more welcoming salon experience.</p>
+</section>
+<div id="app" class="hidden">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">PE</div><div><b>ParlorEase</b><span>Salon Management</span></div></div>
+    <nav id="mainNav">
+      <button class="nav active" data-page="dashboard">⌂ <span>Dashboard</span></button>
+      <button class="nav admin-only" data-page="customers">♙ <span>Customers</span></button>
+      <button class="nav admin-only" data-page="services">✦ <span>Services</span></button>
+      <button class="nav admin-only" data-page="staff">♟ <span>Staff</span></button>
+      <button class="nav" data-page="appointments">▣ <span>Appointments</span><em id="pendingBadge">0</em></button>
+      <button class="nav admin-only" data-page="queue">☷ <span>Queue</span><em id="queueBadge">0</em></button>
+      <button class="nav admin-only" data-page="transactions">₱ <span>Transactions</span></button>
+      <button class="nav admin-only" data-page="reports">▤ <span>Reports</span></button>
+    </nav>
+    <div class="side-note"><strong id="sideRole">Welcome</strong><p id="sideNote">Manage your salon with ease.</p></div>
+  </aside>
+  <main>
+    <header class="topbar">
+      <button id="menu" class="iconbtn" aria-label="Open menu">☰</button>
+      <div><small id="welcomeText">Welcome</small><h1 id="pageTitle">Dashboard</h1></div>
+      <div class="top-actions"><button id="topBook" class="btn light" onclick="openBooking()">＋ Book appointment</button><div id="avatar" class="avatar">PE</div><button class="btn light" onclick="logout()">Log out</button></div>
+    </header>
+    <section id="content" class="content"></section>
+  </main>
+</div>
+<div id="modal" class="modal hidden"><div class="modal-card"><div class="modal-head"><h2 id="modalTitle">Add</h2><button class="iconbtn" onclick="closeModal()" aria-label="Close">×</button></div><form id="modalForm"></form></div></div>
+<div id="toast" role="status"></div>
+<script src="app.js"></script>
+</body>
+</html>
