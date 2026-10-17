@@ -1,3 +1,10 @@
+
+const { url, publishableKey } = window.SUPABASE_CONFIG;
+
+const supabaseClient = window.supabase.createClient(
+  url,
+  publishableKey
+);
 const KEY="parlorease-v1", USERS_KEY="parlorease-demo-users", SESSION_KEY="parlorease-session";
 const seed={customers:[
 {id:1,name:"Maria Santos",phone:"0917 555 1201",email:"maria@email.com",visits:8},
